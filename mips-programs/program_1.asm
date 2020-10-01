@@ -3,80 +3,79 @@
 #	int [ ]  A =  {10,  5,  6,  15,  17,  19,  25,  30,  12,  56 };
 #	int [ ]  B =  {4,  15,  16,  5,  7,  9,  15,  10,  22,  6 };
 #	int [ ]  C =   new  int[10];
-#
 #	for  (int  i=0;   i<A.length;   i++)
 #		C[i]=A[i]  -  B[i];
 #
 #	System.out.println("Result is "  +   Arrays.toString(C));
 #
 #
-#	MIPS assembly practice. Convert above C code into assembly
+# Convert above C code into assembly
 
 
 .data
-result: .asciiz "Result is: "								# Store string
-arrayA: .word 10, 5, 6, 15, 17, 19, 25, 30, 12, 56			# Array1 
-arrayB: .word 4, 15, 16, 5, 7, 9, 15, 10, 22, 6				# Array2 
-arrayC: .word 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 					# Array3 
+result: .asciiz "Result is: "								
+arrayA: .word 10, 5, 6, 15, 17, 19, 25, 30, 12, 56		
+arrayB: .word 4, 15, 16, 5, 7, 9, 15, 10, 22, 6				
+arrayC: .word 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 					
 
 .text
 
 main:   
-	la $t1, arrayA  			# $t1 -> arrayA address
-	la $t2, arrayB				# $t2 -> arrayB address
-	la $t3,	arrayC				# $t3 -> arrayC address
+	la $t1, arrayA  			
+	la $t2, arrayB				
+	la $t3,	arrayC				
      	
-	li $t4, 0					# $t4 -> counter
-	li $s1, 10					# $s1 -> size
+	li $t4, 0					
+	li $s1, 10					
 
-	j loop						# jump to loop
+	j loop						
 	
 loop:
-	beq $t4, $s1, reset			# Check -> send to reset
+	beq $t4, $s1, reset			
 	
-	lw $t5, 0($t1)				# store value from arrayA
-	lw $t6, 0($t2)				# store value from arrayB
+	lw $t5, 0($t1)
+	lw $t6, 0($t2)	
 	
-	sub $t7, $t5, $t6			# store difference in $t7
+	sub $t7, $t5, $t6
 
-	sw $t7, 0($t3)   			# store differnce in arrayC current spot
+	sw $t7, 0($t3) 
 
 	
-	addi $t1, $t1, 4			# increment arrayA
-	addi $t2, $t2, 4			# increment arrayB
-	addi $t3, $t3, 4			# increment arrayC
-	addi $t4, $t4, 1			# increment counter
+	addi $t1, $t1, 4
+	addi $t2, $t2, 4
+	addi $t3, $t3, 4
+	addi $t4, $t4, 1
 	
-	j loop						# jump up
+	j loop
 	
 reset:
-	li $t4, 0					# reset counter	
-	la $t3, arrayC				# reset arrayC position
+	li $t4, 0
+	la $t3, arrayC
 	
-	li $v0, 4					# printing out string
+	li $v0, 4			
 	la $a0, result									
 	syscall 		
-	j print						# jump to print
+	j print					
 	
 print:
 
-	beq $t4, $s1, final			# check first -> send to final
+	beq $t4, $s1, final		
 	
-	lw $s2, 0($t3)				# stro current arrayC val to $s2
+	lw $s2, 0($t3)				
 
-	li $v0, 1					# print current value
+	li $v0, 1					
 	move $a0, $s2											
 	syscall													
 	
-	li $a0, 32					# print space
+	li $a0, 32					
 	li $v0, 11										
 	syscall													
 
-	addi $t3, $t3, 4			# increment arracyC position
-	addi $t4, $t4, 1			# increment counter
+	addi $t3, $t3, 4		
+	addi $t4, $t4, 1		
 
-	j print						# jump up
+	j print						
 	
 final:
 	li $v0, 10
-	syscall						# end the program
+	syscall						
