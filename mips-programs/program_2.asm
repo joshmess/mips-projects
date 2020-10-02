@@ -24,12 +24,13 @@ main:
 	li $s1, 5	# size				
 	j loop						
 loop:
-	addi $t3, 1
-	beq $t3, $s1, print # condition	
+	addi $t3, 1		# increment counter
+	addi $t1, $t1, 4	# increment array pos
+	beq $t3, $s1, print		# condition	
 	lw $t4, 0($t1)  	# load val from array
-	slt $t0, $t2, $t4		# maximum < array[i] ?
+	slt $t0, $t2, $t4	# maximum < array[i] ?
 	beq $t0, $zero, loop	# no: continue
-	add $t2, $t4, 0		
+	add $t2, $t4, 0			# array[i] is new max
 	j loop
 	
 	
@@ -39,7 +40,7 @@ print:
 	syscall 
 	
 	li $v0, 1		# print integer
-	move $a0, $t2	# move $s2 into $a0
+	move $a0, $t2		# move $s2 into $a0
 	syscall			# system call
 	
 
