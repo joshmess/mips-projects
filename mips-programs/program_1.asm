@@ -26,12 +26,12 @@ main:
 	li $s1, 10	#size				
 	j loop						
 loop:
-	beq $t4, $s1, reset	#condition	
-	lw $t5, 0($t1)	#store val from arrayA
-	lw $t6, 0($t2)	#store val from arrayB
-	sub $t7, $t5, $t6	#perform sub
-	sw $t7, 0($t3)	#store in arrayC
-	addi $t1, $t1, 4	#increment all three arrays and counter
+	beq $t4, $s1, reset		#condition	
+	lw $t5, 0($t1)			#store val from arrayA
+	lw $t6, 0($t2)			#store val from arrayB
+	sub $t7, $t5, $t6		#perform sub
+	sw $t7, 0($t3)			#store in arrayC
+	addi $t1, $t1, 4		#increment all three arrays and counter
 	addi $t2, $t2, 4
 	addi $t3, $t3, 4
 	addi $t4, $t4, 1
@@ -48,10 +48,10 @@ reset:
 print:
 	beq $t4, $s1, final	#condition		
 	lw $s2, 0($t3)				
-	li $v0, 1	#print value					
+	li $v0, 1		#print value					
 	move $a0, $s2											
 	syscall													
-	li $a0, 32	#print space					
+	li $a0, 32		#print space					
 	li $v0, 11										
 	syscall													
 	addi $t3, $t3, 4	#increment pos and counter		
