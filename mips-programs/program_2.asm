@@ -25,10 +25,10 @@ main:
 	j loop						
 loop:
 	addi $t3, 1
-	beq $t3, $s1, print		# condition	
-	lw $t4, 0($t1)		# load val from array
+	beq $t3, $s1, print # condition	
+	lw $t4, 0($t1)  	# load val from array
 	slt $t0, $t2, $t4		# maximum < array[i] ?
-	beq $t0, $zero, loop		# no: continue
+	beq $t0, $zero, loop	# no: continue
 	add $t2, $t4, 0		
 	j loop
 	
